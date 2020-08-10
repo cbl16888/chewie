@@ -34,6 +34,7 @@ class _CupertinoControlsState extends State<CupertinoControls> {
   final marginSize = 5.0;
   Timer _expandCollapseTimer;
   Timer _initTimer;
+  bool _hideControls = false;
 
   VideoPlayerController controller;
   ChewieController chewieController;
@@ -65,23 +66,26 @@ class _CupertinoControlsState extends State<CupertinoControls> {
     final barHeight = orientation == Orientation.portrait ? 30.0 : 47.0;
     final buttonPadding = orientation == Orientation.portrait ? 16.0 : 24.0;
 
-    return MouseRegion(
-      onHover: (_) {
-        _cancelAndRestartTimer();
-      },
-      child: GestureDetector(
-        onTap: () {
+    return Offstage(
+      offstage: _hideControls,
+      child: MouseRegion(
+        onHover: (_) {
           _cancelAndRestartTimer();
         },
-        child: AbsorbPointer(
-          absorbing: _hideStuff,
-          child: Column(
-            children: <Widget>[
-              _buildTopBar(
-                  backgroundColor, iconColor, barHeight, buttonPadding),
-              _buildHitArea(),
-              _buildBottomBar(backgroundColor, iconColor, barHeight),
-            ],
+        child: GestureDetector(
+          onTap: () {
+            _cancelAndRestartTimer();
+          },
+          child: AbsorbPointer(
+            absorbing: _hideStuff,
+            child: Column(
+              children: <Widget>[
+                _buildTopBar(
+                    backgroundColor, iconColor, barHeight, buttonPadding),
+                _buildHitArea(),
+                _buildBottomBar(backgroundColor, iconColor, barHeight),
+              ],
+            ),
           ),
         ),
       ),
@@ -96,6 +100,7 @@ class _CupertinoControlsState extends State<CupertinoControls> {
 
   void _dispose() {
     controller.removeListener(_updateState);
+    chewieController.removeListener(_updateOffstageState);
     _hideTimer?.cancel();
     _expandCollapseTimer?.cancel();
     _initTimer?.cancel();
@@ -421,6 +426,7 @@ class _CupertinoControlsState extends State<CupertinoControls> {
 
   Future<Null> _initialize() async {
     controller.addListener(_updateState);
+    chewieController.addListener(_updateOffstageState);
 
     _updateState();
 
@@ -555,4 +561,11 @@ class _CupertinoControlsState extends State<CupertinoControls> {
       _latestValue = controller.value;
     });
   }
+
+  void _updateOffstageState() {
+    setState(() {
+      _hideControls = chewieController.isHideControls;
+    });
+  }
+
 }

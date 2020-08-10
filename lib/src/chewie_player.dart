@@ -184,7 +184,6 @@ class ChewieController extends ChangeNotifier {
     this.isLive = false,
     this.allowFullScreen = true,
     this.allowMuting = true,
-    this.isSmallScreen = false,
     this.systemOverlaysAfterFullScreen = SystemUiOverlay.values,
     this.deviceOrientationsAfterFullScreen = const [
       DeviceOrientation.portraitUp,
@@ -263,9 +262,6 @@ class ChewieController extends ChangeNotifier {
   /// Defines if the mute control should be shown
   final bool allowMuting;
 
-  /// Defines if the screen is small
-  final bool isSmallScreen;
-
   /// Defines the system overlays visible after exiting fullscreen
   final List<SystemUiOverlay> systemOverlaysAfterFullScreen;
 
@@ -288,6 +284,10 @@ class ChewieController extends ChangeNotifier {
   bool get isFullScreen => _isFullScreen;
 
   bool get isPlaying => videoPlayerController.value.isPlaying;
+
+  /// Whether or not to hide the controls when showControls be true
+  bool _hideControls = false;
+  bool get isHideControls => _hideControls;
 
   Future _initialize() async {
     await videoPlayerController.setLooping(looping);
@@ -318,6 +318,13 @@ class ChewieController extends ChangeNotifier {
     if (videoPlayerController.value.isPlaying && !_isFullScreen) {
       enterFullScreen();
       videoPlayerController.removeListener(_fullScreenListener);
+    }
+  }
+
+  void hideControls({bool hideControls = true}) {
+    if (showControls) {
+      _hideControls = hideControls;
+      notifyListeners();
     }
   }
 
