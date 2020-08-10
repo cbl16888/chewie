@@ -558,9 +558,11 @@ class _CupertinoControlsState extends State<CupertinoControls> {
   }
 
   void _updateState() {
-    setState(() {
-      _latestValue = controller.value;
-    });
+    if (null != chewieController && null != controller) {
+      setState(() {
+        _latestValue = controller.value;
+      });
+    }
   }
 
   void _updateOffstageState() {
