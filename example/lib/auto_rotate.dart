@@ -33,9 +33,9 @@ class _ChewieDemoState extends State<ChewieDemo> {
   void initState() {
     super.initState();
     _videoPlayerController1 = VideoPlayerController.network(
-        'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4');
+        'http://vfx.mtime.cn/Video/2019/03/18/mp4/190318231014076505.mp4');
     _videoPlayerController2 = VideoPlayerController.network(
-        'https://www.sample-videos.com/video123/mp4/480/big_buck_bunny_480p_20mb.mp4');
+        'http://vfx.mtime.cn/Video/2019/03/19/mp4/190319212559089721.mp4');
     _chewieController = ChewieController(
         videoPlayerController: _videoPlayerController1,
         aspectRatio: 3 / 2,
@@ -208,7 +208,7 @@ class _VideoScaffoldState extends State<VideoScaffold> {
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
     ]);
-    AutoOrientation.landscapeMode();
+    AutoOrientation.landscapeAutoMode();
     super.initState();
   }
 
@@ -218,7 +218,7 @@ class _VideoScaffoldState extends State<VideoScaffold> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    AutoOrientation.portraitMode();
+    AutoOrientation.portraitAutoMode();
     super.dispose();
   }
 

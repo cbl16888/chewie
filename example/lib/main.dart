@@ -31,9 +31,9 @@ class _ChewieDemoState extends State<ChewieDemo> {
   void initState() {
     super.initState();
     _videoPlayerController1 = VideoPlayerController.network(
-        'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4');
+        'http://vfx.mtime.cn/Video/2019/03/19/mp4/190319212559089721.mp4');
     _videoPlayerController2 = VideoPlayerController.network(
-        'https://www.sample-videos.com/video123/mp4/480/asdasdas.mp4');
+        'http://vfx.mtime.cn/Video/2019/03/18/mp4/190318231014076505.mp4');
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController1,
       aspectRatio: 3 / 2,

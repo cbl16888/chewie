@@ -40,12 +40,14 @@ class ChewieState extends State<Chewie> {
   @override
   void initState() {
     super.initState();
-    widget.controller.addListener(listener);
+    // ignore: invalid_use_of_protected_member
+    if (!widget.controller.hasListeners) {
+      widget.controller.addListener(listener);
+    }
   }
 
   @override
   void dispose() {
-    widget.controller.removeListener(listener);
     super.dispose();
   }
 
