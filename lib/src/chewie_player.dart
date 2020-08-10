@@ -40,15 +40,12 @@ class ChewieState extends State<Chewie> {
   @override
   void initState() {
     super.initState();
-    // ignore: invalid_use_of_protected_member
-//    if (widget.controller.hasListeners) {
-//      widget.controller.removeListener(listener);
-//    }
     widget.controller.addListener(listener);
   }
 
   @override
   void dispose() {
+    widget.controller.removeListener(listener);
     super.dispose();
   }
 
@@ -320,7 +317,7 @@ class ChewieController extends ChangeNotifier {
   void _fullScreenListener() async {
     if (videoPlayerController.value.isPlaying && !_isFullScreen) {
       enterFullScreen();
-//      videoPlayerController.removeListener(_fullScreenListener);
+      videoPlayerController.removeListener(_fullScreenListener);
     }
   }
 
