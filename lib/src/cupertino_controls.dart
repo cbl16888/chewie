@@ -564,9 +564,10 @@ class _CupertinoControlsState extends State<CupertinoControls> {
   }
 
   void _updateOffstageState() {
-    setState(() {
-      _hideControls = chewieController.isHideControls;
-    });
+    if (_hideControls != chewieController.isHideControls) {
+      setState(() {
+        _hideControls = !_hideControls;
+      });
+    }
   }
-
 }
