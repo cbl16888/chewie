@@ -427,6 +427,7 @@ class _CupertinoControlsState extends State<CupertinoControls> {
   Future<Null> _initialize() async {
     controller.addListener(_updateState);
     chewieController.addListener(_updateOffstageState);
+    _hideControls = chewieController.isHideControls;
 
     _updateState();
 
