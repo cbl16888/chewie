@@ -558,7 +558,7 @@ class _CupertinoControlsState extends State<CupertinoControls> {
   }
 
   void _updateState() {
-    if (null != chewieController && null != controller) {
+    if (mounted) {
       setState(() {
         _latestValue = controller.value;
       });
