@@ -41,9 +41,10 @@ class ChewieState extends State<Chewie> {
   void initState() {
     super.initState();
     // ignore: invalid_use_of_protected_member
-    if (!widget.controller.hasListeners) {
-      widget.controller.addListener(listener);
+    if (widget.controller.hasListeners) {
+      widget.controller.removeListener(listener);
     }
+    widget.controller.addListener(listener);
   }
 
   @override
@@ -186,6 +187,7 @@ class ChewieController extends ChangeNotifier {
     this.isLive = false,
     this.allowFullScreen = true,
     this.allowMuting = true,
+    this.isSmallScreen = false,
     this.systemOverlaysAfterFullScreen = SystemUiOverlay.values,
     this.deviceOrientationsAfterFullScreen = const [
       DeviceOrientation.portraitUp,
@@ -263,6 +265,9 @@ class ChewieController extends ChangeNotifier {
 
   /// Defines if the mute control should be shown
   final bool allowMuting;
+
+  /// Defines if the screen is small
+  final bool isSmallScreen;
 
   /// Defines the system overlays visible after exiting fullscreen
   final List<SystemUiOverlay> systemOverlaysAfterFullScreen;
